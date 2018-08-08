@@ -169,7 +169,11 @@ class CreditCardInput extends Component<Props, State> {
         cardImage: images[cardType] || images.placeholder
       });
     });
+    this.props.onRef(this);
   };
+  componentWillUmount = () => {
+    this.props.onRef(undefined);
+  }
 
   checkIsNumeric = (e: any) => {
     if (!/^\d*$/.test(e.key)) {
