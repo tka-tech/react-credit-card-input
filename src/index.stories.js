@@ -17,6 +17,7 @@ storiesOf('CreditCardInput', module)
   .add('default', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         cardCVCInputProps={{
           onBlur: e => console.log('cvc blur', e),
           onChange: e => console.log('cvc change', e)
@@ -34,12 +35,13 @@ storiesOf('CreditCardInput', module)
   ))
   .add('with zip field enabled', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
-      <CreditCardInput enableZipInput />
+      <CreditCardInput enableZipInput onRef={ref => (this.ccInput = ref)} />
     </Container>
   ))
   .add('with pre-filled values', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         cardCVCInputProps={{ value: '123' }}
         cardExpiryInputProps={{ value: '05 / 21' }}
         cardNumberInputProps={{ value: '4242 4242 4242 4242' }}
@@ -49,6 +51,7 @@ storiesOf('CreditCardInput', module)
   .add('custom styling (container)', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         containerClassName="custom-container"
         containerStyle={{
           backgroundColor: 'gray',
@@ -61,6 +64,7 @@ storiesOf('CreditCardInput', module)
   .add('custom styling (field wrapper)', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         fieldClassName="custom-field"
         fieldStyle={{ padding: '20px', color: 'gray' }}
         invalidClassName="is-invalid-custom"
@@ -71,6 +75,7 @@ storiesOf('CreditCardInput', module)
   .add('custom styling (input)', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         inputClassName="custom-input"
         inputStyle={{ color: 'red' }}
       />
@@ -79,6 +84,7 @@ storiesOf('CreditCardInput', module)
   .add('custom styling (danger text)', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         dangerTextClassName="custom-danger-text"
         dangerTextStyle={{ color: 'green' }}
         invalidStyle={{ border: '1px solid green' }}
@@ -88,6 +94,7 @@ storiesOf('CreditCardInput', module)
   .add('custom renderers', () => (
     <Container style={{ backgroundColor: '#f0f0f0' }}>
       <CreditCardInput
+        onRef={ref => (this.ccInput = ref)}
         cardCVCInputRenderer={({ handleCardCVCChange, props }) => (
           <input
             {...props}
