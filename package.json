@@ -1,6 +1,6 @@
 {
   "name": "@saucey-cortex/react-credit-card-input",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "A credit/debit card input field for React",
   "license": "MIT",
   "repository": "github:medipass/react-credit-card-input",
