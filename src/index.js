@@ -440,7 +440,7 @@ class CreditCardInput extends Component<Props, State> {
         break;
     }
     this.setState({
-      cardImage: images[card.type] || images.placeholder
+      cardImage: images[card.type.toLowerCase()] || images.placeholder
     });
     this.cardExpiryField.value = card.exp_date;
     ccInputElement.setAttribute('disabled', true);
