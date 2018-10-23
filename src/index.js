@@ -217,11 +217,7 @@ class CreditCardInput extends Component<Props, State> {
   handleCardNumberChange = (
     { onChange }: { onChange?: ?Function } = { onChange: null }
   ) => (e: SyntheticInputEvent<*>) => {
-    console.log("ONCHANGE");
     const cardNumber = e.target.value;
-
-    console.log(cardNumber.split(' ').join(''))
-    console.log(cardNumber.split(' ').join('').length)
     const cardNumberLength = cardNumber.split(' ').join('').length;
     const cardType = payment.fns.cardType(cardNumber);
     const cardTypeInfo =
@@ -241,7 +237,7 @@ class CreditCardInput extends Component<Props, State> {
       ccInputElement.classList.remove('amex-text-indent');
     }
 
-    this.setState({ showZip: cardNumberLength >= 6 });
+    this.setState({ showZip: cardNumberLength >= 6, cardNumberLength });
 
     this.setFieldValid();
     if (cardTypeLengths) {
