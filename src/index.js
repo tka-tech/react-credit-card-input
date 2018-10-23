@@ -173,7 +173,7 @@ class CreditCardInput extends Component<Props, State> {
   };
   componentWillUmount = () => {
     this.props.onRef(undefined);
-  }
+  };
 
   checkIsNumeric = (e: any) => {
     if (!/^\d*$/.test(e.key)) {
@@ -187,11 +187,12 @@ class CreditCardInput extends Component<Props, State> {
     if (!payment.fns.validateCardNumber(e.target.value)) {
       this.setFieldInvalid('Card number is invalid');
     }
-    const cardInputExpire = document.getElementById('card-expiry').parentElement;
+    const cardInputExpire = document.getElementById('card-expiry')
+      .parentElement;
     const cardInputCvc = document.getElementById('cvc').parentElement;
 
-    cardInputExpire.classList.remove("translate-x-6rem");
-    cardInputCvc.classList.remove("translate-x-6rem");
+    cardInputExpire.classList.remove('translate-x-6rem');
+    cardInputCvc.classList.remove('translate-x-6rem');
 
     const { cardNumberInputProps } = this.props;
     cardNumberInputProps.onBlur && cardNumberInputProps.onBlur(e);
@@ -201,13 +202,12 @@ class CreditCardInput extends Component<Props, State> {
   handleCardNumberFocus = (
     { onFocus }: { onFocus?: ?Function } = { onFocus: null }
   ) => (e: SyntheticInputEvent<*>) => {
-    const { cardImage } = this.state;
-    console.log(cardImage);
-    const cardInputExpire = document.getElementById('card-expiry').parentElement;
+    const cardInputExpire = document.getElementById('card-expiry')
+      .parentElement;
     const cardInputCvc = document.getElementById('cvc').parentElement;
 
-    cardInputExpire.classList.add("translate-x-6rem");
-    cardInputCvc.classList.add("translate-x-6rem");
+    cardInputExpire.classList.add('translate-x-6rem');
+    cardInputCvc.classList.add('translate-x-6rem');
 
     const { cardNumberInputProps } = this.props;
     cardNumberInputProps.onFocus && cardNumberInputProps.onFocus(e);
@@ -232,9 +232,9 @@ class CreditCardInput extends Component<Props, State> {
     });
 
     if (cardTypeInfo.isAmex) {
-      ccInputElement.classList.add("amex-text-indent");
+      ccInputElement.classList.add('amex-text-indent');
     } else {
-      ccInputElement.classList.remove("amex-text-indent");
+      ccInputElement.classList.remove('amex-text-indent');
     }
 
     this.setState({ showZip: cardNumberLength >= 6 });
@@ -422,6 +422,23 @@ class CreditCardInput extends Component<Props, State> {
     // $FlowFixMe
     document.getElementById('field-wrapper').classList.add(invalidClassName);
     this.setState({ errorText });
+  };
+
+  setPrefill = card => {
+    const ccInputElement = document.getElementById('cardNumber');
+    let cardNumber = '';
+    switch (card.type) {
+      case 'amex':
+        ccInputElement.classList.add('amex-text-indent');
+        cardNumber = 'xxxx xxxxxx x' + card.last4;
+        break;
+      default:
+        ccInputElement.classList.remove('amex-text-indent');
+        cardNumber = 'xxxx xxxx xxxx ' + card.last4;
+        break;
+    }
+    ccInputElement.setAttribute('disabled', true);
+    this.cardNumberField.value = cardNumber;
   };
 
   setFieldValid = () => {
