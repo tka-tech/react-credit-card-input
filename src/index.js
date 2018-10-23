@@ -47,7 +47,7 @@ const InputWrapper = styled.label`
   align-items: center;
   transition: transform 0.5s;
   transform: translateX(
-    ${({ translateXForZip }) => (translateXForZip ? '0' : '4rem')}
+    ${({ translateXForZip }) => (translateXForZip ? '0' : '1rem')}
   );
 
   &::after {
@@ -60,7 +60,7 @@ const InputWrapper = styled.label`
     border: 0px;
     position: absolute;
     width: 100%;
-    font-size: 1em;
+    font-size: 14px;
     ${({ inputStyled }) => ({ ...inputStyled })};
 
     &:focus {
@@ -187,10 +187,31 @@ class CreditCardInput extends Component<Props, State> {
     if (!payment.fns.validateCardNumber(e.target.value)) {
       this.setFieldInvalid('Card number is invalid');
     }
+    const cardInputExpire = document.getElementById('card-expiry').parentElement;
+    const cardInputCvc = document.getElementById('cvc').parentElement;
+
+    cardInputExpire.classList.remove("translate-x-6rem");
+    cardInputCvc.classList.remove("translate-x-6rem");
 
     const { cardNumberInputProps } = this.props;
     cardNumberInputProps.onBlur && cardNumberInputProps.onBlur(e);
     onBlur && onBlur(e);
+  };
+
+  handleCardNumberFocus = (
+    { onFocus }: { onFocus?: ?Function } = { onFocus: null }
+  ) => (e: SyntheticInputEvent<*>) => {
+    const { cardImage } = this.state;
+    console.log(cardImage);
+    const cardInputExpire = document.getElementById('card-expiry').parentElement;
+    const cardInputCvc = document.getElementById('cvc').parentElement;
+
+    cardInputExpire.classList.add("translate-x-6rem");
+    cardInputCvc.classList.add("translate-x-6rem");
+
+    const { cardNumberInputProps } = this.props;
+    cardNumberInputProps.onFocus && cardNumberInputProps.onFocus(e);
+    onFocus && onFocus(e);
   };
 
   handleCardNumberChange = (
@@ -203,13 +224,18 @@ class CreditCardInput extends Component<Props, State> {
       creditCardType.getTypeInfo(creditCardType.types[CARD_TYPES[cardType]]) ||
       {};
     const cardTypeLengths = cardTypeInfo.lengths || [16];
-
+    const ccInputElement = document.getElementById('cardNumber');
     this.cardNumberField.value = formatCardNumber(cardNumber);
-
     this.setState({
       cardImage: images[cardType] || images.placeholder,
       cardNumber
     });
+
+    if (cardTypeInfo.isAmex) {
+      ccInputElement.classList.add("amex-text-indent");
+    } else {
+      ccInputElement.classList.remove("amex-text-indent");
+    }
 
     this.setState({ showZip: cardNumberLength >= 6 });
 
@@ -455,7 +481,7 @@ class CreditCardInput extends Component<Props, State> {
               handleCardNumberBlur: onBlur =>
                 this.handleCardNumberBlur({ onBlur }),
               props: {
-                id: 'card-number',
+                id: 'cardNumber',
                 ref: cardNumberField => {
                   this.cardNumberField = cardNumberField;
                 },
@@ -467,7 +493,8 @@ class CreditCardInput extends Component<Props, State> {
                 ...cardNumberInputProps,
                 onBlur: this.handleCardNumberBlur(),
                 onChange: this.handleCardNumberChange(),
-                onKeyPress: this.handleCardNumberKeyPress
+                onKeyPress: this.handleCardNumberKeyPress,
+                onFocus: this.handleCardNumberFocus()
               }
             })}
           </InputWrapper>
