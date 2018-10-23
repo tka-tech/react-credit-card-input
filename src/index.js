@@ -481,7 +481,6 @@ class CreditCardInput extends Component<Props, State> {
       invalidStyle
     } = this.props;
     const isZipEnabled = enableZipInput && showZip;
-    console.log(cardNumberLength)
     const empty = cardNumberLength === 0 ? 'empty' : '';
     return (
       <Container className={containerClassName} styled={containerStyle}>
