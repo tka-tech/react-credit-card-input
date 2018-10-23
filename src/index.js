@@ -457,7 +457,7 @@ class CreditCardInput extends Component<Props, State> {
   };
 
   render = () => {
-    const { cardImage, errorText, showZip } = this.state;
+    const { cardImage, errorText, showZip, cardNumberLength } = this.state;
     const {
       cardImageClassName,
       cardImageStyle,
@@ -481,7 +481,7 @@ class CreditCardInput extends Component<Props, State> {
       invalidStyle
     } = this.props;
     const isZipEnabled = enableZipInput && showZip;
-
+    const empty = cardNumberLength === 0 ? 'empty' : '';
     return (
       <Container className={containerClassName} styled={containerStyle}>
         <FieldWrapper
@@ -511,7 +511,7 @@ class CreditCardInput extends Component<Props, State> {
                   this.cardNumberField = cardNumberField;
                 },
                 autoComplete: 'cc-number',
-                className: `credit-card-input ${inputClassName}`,
+                className: `credit-card-input ${inputClassName} ${empty}`,
                 pattern: '[0-9]*',
                 placeholder: 'Card number',
                 type: 'text',
