@@ -430,11 +430,11 @@ class CreditCardInput extends Component<Props, State> {
     switch (card.type) {
       case 'amex':
         ccInputElement.classList.add('amex-text-indent');
-        cardNumber = 'xxxx xxxxxx x' + card.last4;
+        cardNumber = 'xxxx xxxxxx x' + card.last_4;
         break;
       default:
         ccInputElement.classList.remove('amex-text-indent');
-        cardNumber = 'xxxx xxxx xxxx ' + card.last4;
+        cardNumber = 'xxxx xxxx xxxx ' + card.last_4;
         break;
     }
     ccInputElement.setAttribute('disabled', true);
