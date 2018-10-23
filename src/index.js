@@ -217,6 +217,9 @@ class CreditCardInput extends Component<Props, State> {
   handleCardNumberChange = (
     { onChange }: { onChange?: ?Function } = { onChange: null }
   ) => (e: SyntheticInputEvent<*>) => {
+    console.log("ONCHANGE");
+    console.log(cardNumber.split(' ').join(''))
+    console.log(cardNumber.split(' ').join('').length)
     const cardNumber = e.target.value;
     const cardNumberLength = cardNumber.split(' ').join('').length;
     const cardType = payment.fns.cardType(cardNumber);
