@@ -431,13 +431,20 @@ class CreditCardInput extends Component<Props, State> {
       case 'amex':
         ccInputElement.classList.add('amex-text-indent');
         cardNumber = 'xxxx xxxxxx x' + card.last_4;
+        this.cvcField.value = 'xxxx';
         break;
       default:
         ccInputElement.classList.remove('amex-text-indent');
         cardNumber = 'xxxx xxxx xxxx ' + card.last_4;
+        this.cvcField.value = 'xxx';
         break;
     }
+    this.setState({
+      cardImage: images[card.type] || images.placeholder
+    });
+    this.cardExpiryField.value = card.exp_date;
     ccInputElement.setAttribute('disabled', true);
+    this.cvcField.setAttribute('disabled', true);
     this.cardNumberField.value = cardNumber;
   };
 
