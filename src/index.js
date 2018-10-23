@@ -446,6 +446,9 @@ class CreditCardInput extends Component<Props, State> {
     ccInputElement.setAttribute('disabled', true);
     this.cvcField.setAttribute('disabled', true);
     this.cardNumberField.value = cardNumber;
+
+    this.cardExpiryField.classList.remove('translate-x-6rem');
+    this.cvcField.classList.remove('translate-x-6rem');
   };
 
   setFieldValid = () => {
